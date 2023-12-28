@@ -1,0 +1,37 @@
+kind: pipeline
+type: docker
+name: tests
+
+trigger:
+
+  # event:
+  #  - pull_request
+  branch:
+    - dev
+
+steps:
+  - name: lint chart
+    image: alpine/helm
+    commands:
+      - helm lint
+
+---
+kind: pipeline
+type: docker
+name: publish
+
+
+trigger:
+  event:
+    - push
+  branch:
+    - dev # TODO: change to main
+
+steps:
+  name: publish helm chart
+  image: otwld/drone-chart-releaser-github-pages
+  settings:
+    charts_dir: "."
+    cr_token:
+      from_secret: github_access_token
+      skip_existing: true
