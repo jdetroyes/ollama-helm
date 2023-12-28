@@ -3,7 +3,6 @@ type: docker
 name: tests
 
 trigger:
-
   # event:
   #  - pull_request
   branch:
@@ -28,10 +27,10 @@ trigger:
     - dev # TODO: change to main
 
 steps:
-  name: publish helm chart
-  image: otwld/drone-chart-releaser-github-pages
-  settings:
-    charts_dir: "."
-    cr_token:
-      from_secret: github_access_token
-      skip_existing: true
+  - name: publish helm chart
+    image: otwld/drone-chart-releaser-github-pages
+    settings:
+      charts_dir: "."
+      cr_token:
+        from_secret: github_access_token
+        skip_existing: true
