@@ -21,8 +21,6 @@ name: publish
 
 
 trigger:
-  event:
-    - push
   branch:
     - dev # TODO: change to main
 
