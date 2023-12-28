@@ -34,4 +34,3 @@ steps:
       cr_token:
         from_secret: github_access_token
         skip_existing: true
-        skip_packaging: true
