@@ -9,7 +9,9 @@
 .bzrignore
 .hg/
 .hgignore
+.cr-release-packages
 .svn/
+.drone.yml
 # Common backup files
 *.swp
 *.bak
