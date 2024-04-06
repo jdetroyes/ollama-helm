@@ -20,8 +20,8 @@ steps:
   - name: create kind cluster
     image: otwld/drone-kind
     settings:
-      verbose: 1
-      config: 'kind-config.yml'
+      #verbose: 1
+      #config: 'kind-config.yml'
       cluster_name: "helm-testing"
     volumes:
       - name: dockersock
@@ -33,11 +33,7 @@ steps:
 
   - name: test chart
     image: quay.io/helmpack/chart-testing
-    privileged: true
     commands:
-      - sed -i -e "s/0.0.0.0/kubernetes/g" $HOME/.kube/config
-      - cat /root/.kube/config
-      - kubectl cluster-info
       - ct install --chart-dirs . --charts .
     depends_on:
       - create kind cluster
@@ -47,10 +43,10 @@ steps:
 
   - name: delete kind cluster
     image: otwld/drone-kind
-    privileged: true
     settings:
       clean: true
     depends_on:
+      - kubernetes
       - test chart
     volumes:
       - name: dockersock
@@ -59,7 +55,7 @@ steps:
         path: /root/.kube
 
 
-
+# Use docker:dind for running kind
 services:
   - name: kubernetes
     image: docker:dind
