@@ -35,7 +35,7 @@ steps:
     image: quay.io/helmpack/chart-testing
     privileged: true
     commands:
-      - sed -i -e "s/0.0.0.0/docker-service/g" $HOME/.kube/config
+      - sed -i -e "s/0.0.0.0/kubernetes/g" $HOME/.kube/config
       - cat /root/.kube/config
       - kubectl cluster-info
       - ct install --chart-dirs . --charts .
@@ -61,7 +61,7 @@ steps:
 
 
 services:
-  - name: docker-service
+  - name: kubernetes
     image: docker:dind
     privileged: true
     volumes:
