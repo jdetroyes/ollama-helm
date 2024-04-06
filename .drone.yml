@@ -29,7 +29,7 @@ steps:
       - name: kubeconfig
         path: /root/.kube
     depends_on:
-      - docker-service
+      - kubernetes
 
   - name: test chart
     image: quay.io/helmpack/chart-testing
